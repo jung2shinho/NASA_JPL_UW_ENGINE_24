@@ -311,6 +311,7 @@ The model is able to pick up some trends of the data, which indicates we can def
 - max_depth=5
 
 **Results and Findings**
+
 ![plot 910](/static/images/plot910.png)
 
 *Plot* 9 & 10: Random Forest Regressor Model  - GIC Predictions + Residual Error Plot 
