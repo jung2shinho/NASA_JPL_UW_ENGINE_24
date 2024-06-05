@@ -33,7 +33,7 @@ In machine learning, the LSTM model had the best performance in nowcasting magne
 ## Extreme Value Analysis
 In the initial phase of our analysis, we concentrated on processing on the North American Electric Reliability Corporation (NERC) raw dataset, spanning the years 2013 to 2022. The GIC (Geomagnetic Induced Current) values consisted of positive and negative data, thus, we converted all values into their absolute magnitudes and then extracted the maximum values from each GIC event from each GIC device across the United States. Subsequently, we visualized these values on a geographic map to access their distributions with other statistical measures. This approach facilitated our initial understanding of the spatial distribution of geomagnetic disturbances across different regions over a long timespan.
 
-![figure 20](/static/images/figure20.png)
+![figure 20](/static/images/figure20.png) 
 
 *Figure* 20: Visualization of GIC on USA map
 
@@ -60,12 +60,15 @@ In the second phase of our analysis, we focused on estimating the hazard return 
 Lowering the threshold might include more data points, potentially smoothing out the return level curve but might also dilute the focus on truly extreme events. Conversely, a higher threshold could lead to data scarcity, increasing model uncertainty. 
 
 ![figure 21](/static/images/figure21.png)
+
 *Figure* 21: Return level plot for 3 kinds of data filter                       
 
 ![figure 22](/static/images/figure22.png)
+
 *Figure* 22: Threshold exceedance of 1-10 years GEV return level
 
 ![figure 23](/static/images/figure23.png)
+
 *Figure* 23: ZT: T-year return level equation;
 *This is the event value that happens once in every T years*
 
@@ -79,18 +82,25 @@ The quantile-quantile (QQ) plot, a model-independent method for comparing two em
 We conducted an analysis of the QQ plot for the supernodes, defined as the nodes within a 50-mile radius around Washington, D.C. (latitude 38.8951, longitude -77.0364) and Michigan (latitude 44.3148, longitude -85.6024). The analysis included comparisons between the data and the normal distribution as well as the Generalized Extreme Value (GEV) distribution for both supernodes and non-supernode regions.
 
 ![figure 24](/static/images/figure24.png)
+
 *Figure* 24: Supernode 1 (Device 10305, Event 2017 05 27)
+
 For Supernode 1 (Device 10305, Event 20170527) in *Figure* 1, we discovered significant deviation from the normal distribution, particularly in the upper tail. This deviation suggests the presence of extreme values that the normal distribution fails to capture. In contrast, the GEV distribution showed better alignment in the upper tail, indicating that it models extreme values more effectively, which is typical for data with heavy tails.
 
 ![figure 25](/static/images/figure25.png)
+
 *Figure* 25: Supernode 2 (Device 10397, Event 2017 05 27)
+
 Similarly, in Supernode 2 (Device 10397, Event 20170527) in *Figure* 2, we observed significant deviations from the normal distribution. Consistent with the findings for the first supernode, the second supernode's data also exhibited a better fit with the GEV distribution, suggesting consistency in data behavior across different supernodes.
 
 ![figure 26](/static/images/figure26.png)
+
 *Figure* 26: Non-supernode (Device 10081, Event 2017 05 27)
+
 For the non-supernode (Device 10081, Event 20170527) in *Figure* 3, the QQ plot revealed that the data align more closely with the normal distribution than with the GEV distribution. This pattern indicates fewer occurrences of extreme deviations and a more stable data pattern, typical of less critical infrastructure or differing operational influences.
 
 ![figure 27](/static/images/figure27.png)
+
 *Figure* 27: Comparison of non-supernodes
 
 ### Results
@@ -112,6 +122,7 @@ Network Analysis contains data preprocessing, wavelet decomposition, and cross-c
 ![figure 28a](/static/images/figure28a.png)
 ![figure 28b](/static/images/figure28b.png)
 ![figure 28c](/static/images/figure28c.png)
+
 *Figure* 28 a/b/c: Data Flow for Network Analysis
 
 ### Data Preprocessing
@@ -141,19 +152,23 @@ After applying the Haar wavelet transform to the raw GIC data of even 2013_1002,
 
 ![figure 29a](/static/images/figure29a.png)
 ![figure 29b](/static/images/figure29b.png)
+
 *Figure* 29 a/b: Wavelet heatmaps of first and second level coefficients for each device.
 
 ![figure 30](/static/images/figure30.png)
+
 *Figure* 30: One-time cross correlation between coefficients.
 
 *Figure* 30 is to obtain a one-time cross-correlation on different scales of the wavelet transform. It shows a network diagram where the nodes represent different monitors and lines between nodes show correlations. The more nodes are wired, the higher the correlation with the other monitors.
 
 ![figure 31](/static/images/figure31.png)
+
 *Figure* 31: Time-based heatmap showing the relationship between GIC devices
 
 *Figure* 31 is a time-based heatmap showing the relationship between GIC devices. The size of the circles indicates the local degree of each node (number of connections to that node in the network at that time). Only cross-correlation greater than 0.8 will increase the node degree at this time point. Then the color plots the magnitude of the correlation, and it will be presented only when the correlation of the node must both (i) exceed 80% of all values obtained at that node and (ii) the wavelet cross-correlation between a pair of nodes must exceed 0.85 within a 30-minute leading edge window, otherwise it will show a circle with no color.
 
 ![figure 32](/static/images/figure32.png)
+
 *Figure* 32: Inverse trend between between degree of iteration and device-specific correlation thresholds for 5 different GIC devices or stations
 
 *Figure* 32 shows the relationship between degree and threshold after applying the degree algorithm. Then the n0 was set to equal 0.1, we could find different thresholds for each monitor. Finally, we could use it to find a new correlation between each monitor and make a clearer comparison with the physical power grid.
@@ -168,6 +183,7 @@ The preprocessing dataset involved three raw datasets SuperMAG (2010 - 2023), OM
 The dataset was created by joining the datetime between SuperMAG and OMNI dataset, both ranging from 2010 - 2023. The training dataset ranged from 2010 - 2019 and the testing dataset ranged from 2020 - 2023 (Upendran, V. et al., 2022). The diagram below shows the details of the data flow from collecting raw data to the complete data set files stored in Google Drive.
 
 ![figure 33](/static/images/figure33.png)
+
 *Figure* 33: Diagram showing the process of creating ready for analysis
 
 ### SuperMAG Dataset (dB/dt)
@@ -180,6 +196,7 @@ OMNI dataset provided near-Earth solar wind magnetic field and plasma parameter 
 The dataset was created by joining the GIC event datetime and by all the devices sensors of GIC measured within the 500 miles radius of the station where Magnetic perturbation measured showed in figure , from the NERC GIC and Supermag datasets, both ranging from 2013 - 2023. The training dataset is ranged from 2013 - 2022 and the testing dataset 2023. 
 
 ![figure 34](/static/images/figure34.png)
+
 *Figure* 34: Stations and Devices sensor relationship where Station is 
 marked Red and Station is blue
 
@@ -207,9 +224,11 @@ Table 1: RMSE and MAE value for training and testing dataset
 
 
 ![plot 1](/static/images/plot1.png)
+
 *Plot* 1: Multivariate Linear Model - Plot of truth vs prediction zoom-in two days range of test dataset.
 
 ![plot 2](/static/images/plot2.png)
+
 *Plot* 2: Multivariate Linear Model - Residual Error Plot for dBn/dt and dBe/dt prediction
 Throughout the results, we recognize that multivariate linear regression is not really doing great in the dataset, especially for the dBe/dt prediction. From the metrics table, we can see that both values for RMSE and MAE of dBe/dt in training and testing dataset are both all higher than those values of dBn/dt. This tells us that the model performs worse on the dBe/dt prediction. Look into plot 2, the line plot of truth vs prediction, in this plot we have zoom into 2 days range data of prediction and we can see that the model is not able to capture the dynamics of dBe/dt really well, meanwhile, it’s able to follow the trend that’s happening in the dBn/dt. One of the hypotheses that we have is that our multivariate linear regression is not able to capture the non-linear relationship between the features. Moreover, since we’re working with the time series data, the order of the data point and historical information are also really important. Since that, we have experimented with Ranform Forest, which is known for capturing non-linear relationships between features, and Long Short Term Memory (LSTM), which is known for keeping the order of data points and maintaining information in memory for longer periods. We have also shown the results and analysis for those models in later sections below.
 
@@ -226,9 +245,11 @@ Throughout the results, we recognize that multivariate linear regression is not 
 ### Results and Findings for Magnetic Perturbation (db/dt)
 
 ![plot 3](/static/images/plot3.png)
+
 *Plot* 3: Random Forest Model - Plot of truth vs prediction zoom-in two days range of test dataset.
 
 ![plot 4](/static/images/plot4.png)
+
 *Plot* 4: Random Forest Model - Residual Error Plot for dBn/dt and dBe/dt prediction
 RFRM resulted in mediocre performance in predicting magnetic perturbation values (nT) for the North and East axes.​
 However, the results are ​essential in understanding the dynamics and the characteristics of the data.​ The model captures low-magnitude and non-linear trends, however, fails to learn the high-magnitude dynamics of the data.​
@@ -244,20 +265,24 @@ Output Gate: Controls what information to output from the cell state to the next
 Cell candidate: The cell state is updated with new information scaled by the input gate and old information scaled by the forget gate.
 
 ![figure 35](/static/images/figure35.png)
+
 *Figure* 35: Standard LSTM unit
 
 *Figure* 36 illustrates the sequential data process inside a LSTM layer, through this unique architecture, LSTM comes out to be a powerful tool for capturing long-term dependencies and performing future prediction.
 
 ![figure 36](/static/images/figure36.png)
+
 *Figure* 36: Standard LSTM Layer
 
 
 ### Results and Findings for Magnetic Perturbation(Db/dt)
 
 ![plot 5](/static/images/plot5.png)
+
 *Plot* 5: Long-Short Term Memory Model  - Plot of truth vs prediction zoom-in two days range of test dataset.
 
 ![plot 6](/static/images/plot6.png)
+
 *Plot* 6: Long-Short Term Memory Model - Residual Error Plot for dBn/dt and dBe/dt prediction
 
 Our model was trained on the 2010-2019 dataset while validated on 2020 dataset. Our current configuration is: Batch_size = 360, Activation: ReLu, Optimization = Adam, Loss = MSE, Epochs = 50. Through the training process, we find out:
@@ -275,6 +300,7 @@ All the models are using a dataset of the station in Washington DC(39.0, 281.8) 
 **Results and Findings:**
 
 ![plot 78](/static/images/plot78.png)
+
 *Plot* 7 & 8: Multivariate Linear Regression Model - GIC Predictions + Residual Error Plot 
 
 The model is able to pick up some trends of the data, which indicates we can definitely improve the models through hyperparameters.
@@ -286,6 +312,7 @@ The model is able to pick up some trends of the data, which indicates we can def
 
 **Results and Findings**
 ![plot 910](/static/images/plot910.png)
+
 *Plot* 9 & 10: Random Forest Regressor Model  - GIC Predictions + Residual Error Plot 
 
 This model seems to be flat prediction at around 2 Amperes. Similar to the Linear Regression Model, my prediction is that because we are overpopulated the normal data compare to when the GIC events extreme happened, which cause the models to predict at 2 amperes which give us the most accurate overall but result incorrect.
@@ -307,6 +334,7 @@ This model seems to be flat prediction at around 2 Amperes. Similar to the Linea
 **Results and Findings**
 
 ![plot 1112](/static/images/plot1112.png)
+
 *Plot* 11 & 12: Long-Short Term Memory Model  - GIC Predictions + Residual Error Plot 
 
 The LSTM model seems to be able to pick up the trend of the actual signal, which gives us an indication of these particular models performing better when it comes to our time series dataset prediction compared to random forest and linear regression.
